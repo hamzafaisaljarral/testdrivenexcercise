@@ -23,6 +23,7 @@ Limit the queryset to 50 records.
 Iter over this queryset, and add a time.sleep(60) inside the loop. Implement this with celery task
 
 How to run project
+pip install -r requirements.txt
 - ./manage.py makemigrations 
 - ./manage.py migrate
 - ./manage.py runscript random_revenue --dir-policy root
