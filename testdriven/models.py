@@ -1,7 +1,6 @@
 from django.db import models
 from decimal import Decimal
-from django.db.models import FloatField, F, ExpressionWrapper, DecimalField
-from django.db.models.functions import Cast
+from django.db.models import FloatField, F, ExpressionWrapper
 
 
 class Performance(models.Model):
@@ -26,14 +25,13 @@ class FilterManager(models.QuerySet):
     def filter_by_min_roi(self, min_roi=None):
         if min_roi is not None:
             return self.all().annotate(prod=ExpressionWrapper(F('profit') * Decimal('1.0') / F('cost') * 100,
-                                              output_field=FloatField())).filter(prod=Decimal(min_roi) * 100)
-        return self.all().annotate(prod=ExpressionWrapper(F('profit') * Decimal('1.0')/F('cost') * 100,
-                                                            output_field=FloatField()))
+                                                              output_field=FloatField())).filter(
+                prod=Decimal(min_roi) * 100)
+        return self.all().annotate(prod=ExpressionWrapper(F('profit') * Decimal('1.0') / F('cost') * 100,
+                                                          output_field=FloatField()))
 
 
 class DailyPerformance(Performance):
     date = models.DateField()
 
     objects = FilterManager.as_manager()
-
-

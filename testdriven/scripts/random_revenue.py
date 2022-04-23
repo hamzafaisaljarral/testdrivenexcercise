@@ -1,5 +1,4 @@
 import random
-from decimal import Decimal
 
 from testdriven.models import DailyPerformance
 
